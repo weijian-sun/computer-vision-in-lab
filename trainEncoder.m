@@ -148,14 +148,6 @@ encoder.geometricExtension = opts.geometricExtension ;
 numImages = numel(images) ;
 numDescrsPerImage = ceil(opts.numWords * opts.numSamplesPerWord / numImages) ;
 
-
-% switch opts.type
-%     case {'cnn-vlag','cnn-fv','cnn-gradient-fv','cnn-vlag-gmm','cnn-superfv','cnn-supervlag'}
-%         net = load(opts.nettype) ;
-%     otherwise
-%         net=0;
-% end
-
 parfor i = 1:numImages
     dress=[images{i}(1:(end-4)),'.mat'];
     if(opts.usepreprocessfeature)
@@ -169,13 +161,6 @@ parfor i = 1:numImages
         w = size(im,2) ;
         h = size(im,1) ;
         features = encoder.extractorFn(im) ;
-        
-        %   switch opts.type
-        %       case {'cnn-vlag','cnn-fv','cnn-gradient-fv','cnn-vlag-gmm','cnn-superfv','cnn-supervlag'}
-        %           features = encoder.extractorFn(im, net) ;
-        %       otherwise
-        %           features = encoder.extractorFn(im) ;
-        %   end
         
     end
     randn('state',0) ;
@@ -229,7 +214,7 @@ switch encoder.type
     case {'cnn-fvsinglegaussian'}
         [encoder.means, encoder.covariances, encoder.priors] = vl_fvsinglegaussianmodel(descrs);
     case {'cnn-singlegaussian'}
-        [encoder.word, encoder.covariance] = vl_singlegaussianmodel(descrs);
+        [encoder.word, encoder.covarianceinverse] = vl_singlegaussianmodel(descrs);
     case {'cnn-supervlagimproved'}
         vl_twister('state', opts.seed) ;
         [encoder.words, encoder.kdtree] = vl_superkmeansimproved(descrs, opts.numWords, opts.codedimention);

@@ -105,15 +105,6 @@ if(opts.usepreprocessfeature)
     imageSize = features.size ;
 else
     
-    % switch opts.type
-    %     case {'cnn-vlag','cnn-fv','cnn-gradient-fv','cnn-vlag-gmm','cnn-superfv'}
-    %     net = load(opts.nettype) ;
-    %     features = encoder.extractorFn(im,net) ;
-    %     otherwise
-    %     net = 0;
-    %     features = encoder.extractorFn(im) ;
-    % end
-    
     features = encoder.extractorFn(im) ;
     imageSize = size(im) ;
     
@@ -148,7 +139,7 @@ for i = 1:size(encoder.subdivisions,2)
         case {'cnn-fvsinglegaussian'}
             z=vl_fvsinglegaussiancode(descrs, encoder.means, encoder.covariances, encoder.priors);
         case {'cnn-singlegaussian'}
-            z=vl_singlegaussiancode(descrs, encoder.word, encoder.covariance);
+            z=vl_singlegaussiancode(descrs, encoder.word, encoder.covarianceinverse);
         case {'cnn-supervlagimproved'}
             z=vl_supervlagimproved(encoder.kdtree, encoder.words, descrs, opts.codedimention);
         case {'cnn-superfv-covariance'}

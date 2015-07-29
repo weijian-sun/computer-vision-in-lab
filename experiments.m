@@ -116,7 +116,7 @@ if lite, tag = 'lite' ;
 else, tag = 'ex' ; end
 
 %for i=1:numel(ex)
-for i=4:5
+for i=4
   for j=1:numel(ex(i).datasets)
     dataset = ex(i).datasets{j} ;
     if ~isfield(ex(i), 'trainOpts') || ~iscell(ex(i).trainOpts)
