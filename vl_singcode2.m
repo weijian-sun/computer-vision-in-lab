@@ -5,7 +5,9 @@ S0=sum(descrs,2)/numdescrs;
 S1=descrs*descrs'/numdescrs;
 
 codeu=sigmainverse*(S0-mean);
-codesigma=-1/2*sigmainverse+1/2*sigmainverse*(S1-S0*mean'-mean*S0'+mean*mean')*sigmainverse;
+%codesigma=-1/2*sigmainverse+1/2*sigmainverse*(S1-S0*mean'-mean*S0'+mean*mean')*sigmainverse;
+codesigma=sigmainverse*(S1-S0*mean'-mean*S0'+mean*mean')*sigmainverse;
+
 
 codesigma=[codesigma(1,1);codesigma(1,2);codesigma(2,2)];
 

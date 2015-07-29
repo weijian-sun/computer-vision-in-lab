@@ -9,7 +9,9 @@ for n=1:(dimention-1)
         id=id+1;
         temp=[descrs(n,:);descrs(m,:)];
         means{id}=mean(temp,2);
-        covarianceinverse{id}=cov(temp')';
+        sigma=cov(temp')';
+        [u,s,v]=svd(sigma);
+        covarianceinverse{id}=v*s^(-1)*u'; 
     end
 end
 end
