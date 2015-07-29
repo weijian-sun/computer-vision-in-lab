@@ -1,0 +1,5 @@
+/data/
+/vlfeat-0.9.20-for test2/
+*.mat
+*.asv
+*.zip

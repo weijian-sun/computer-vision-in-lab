@@ -115,7 +115,7 @@ end
 
 if isempty(opts.numSamplesPerWord)
     switch opts.type
-        case {'cnn-superfv-covariance','cnn-supervlagimproved','cnn-singlegaussian'}
+        case {'cnn-superfv-covariance','cnn-supervlagimproved','cnn-singlegaussian','cnn-fvsinglegaussian'}
             opts.numSamplesPerWord=1000;
         case {'cnn-supervlag'}
             opts.numSamplesPerWord=1000;
@@ -226,6 +226,8 @@ dimension = size(descrs,1) ;
 numDescriptors = size(descrs,2) ;
 
 switch encoder.type
+    case {'cnn-fvsinglegaussian'}
+        [encoder.means, encoder.covariances, encoder.priors] = vl_fvsinglegaussianmodel(descrs);
     case {'cnn-singlegaussian'}
         [encoder.word, encoder.covariance] = vl_singlegaussianmodel(descrs);
     case {'cnn-supervlagimproved'}

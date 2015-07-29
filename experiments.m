@@ -79,7 +79,7 @@ ex(3).opts = {
   %'extractorFn', @(x) getDenseCnn(x, net, 'netlevel', 38, 'scales', 2.^(-0.5:.5:1.5))
   };
 
-ex(4).prefix = 'cnnvd37-singlegaussian-fmd-nopca' ;
+ex(4).prefix = 'cnnvd37-singlegaussian-fmd-nopca-nocov-doublenormalization' ;
 ex(4).trainOpts = {'C', 10} ;
 ex(4).datasets = {'fmd'} ;
 ex(4).seed = 1;
@@ -91,16 +91,32 @@ ex(4).opts = {
   'type', 'cnn-singlegaussian', ...
   'layouts', {'1x1'}, ...
   'geometricExtension', 'none', ...
-  'numPcaDimensions',+inf, ...
+  'numPcaDimensions',512, ...
   %'extractorFn', @(x) getDenseCnn(x, net, 'netlevel', 38, 'scales', 2.^(-0.5:.5:1.5))
   }; 
 
+ex(5).prefix = 'cnnvd37-fvsinglegaussian-fmd-256pca-nocov-doublenormalization' ;
+ex(5).trainOpts = {'C', 10} ;
+ex(5).datasets = {'fmd'} ;
+ex(5).seed = 1;
+ex(5).usepreprocessfeature = true;
+ex(5).imagedateDir = '2^(-0.5-.5-1)-verydeep-19-level37';
+%ex(5).net=load('imagenet-vgg-verydeep-19.mat');
+ex(5).savefeature=false;
+ex(5).opts = {
+  'numWords', 1, ...
+  'type', 'cnn-fvsinglegaussian', ...
+  'layouts', {'1x1'}, ...
+  'geometricExtension', 'none', ...
+  'numPcaDimensions',256, ...
+  %'extractorFn', @(x) getDenseCnn(x, net, 'netlevel', 38, 'scales', 2.^(-0.5:.5:1.5))
+  }; 
 
 if lite, tag = 'lite' ;
 else, tag = 'ex' ; end
 
 %for i=1:numel(ex)
-for i=4
+for i=4:5
   for j=1:numel(ex(i).datasets)
     dataset = ex(i).datasets{j} ;
     if ~isfield(ex(i), 'trainOpts') || ~iscell(ex(i).trainOpts)

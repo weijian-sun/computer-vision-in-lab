@@ -1,4 +1,4 @@
-function z = vl_singlegaussiancode(descrs, means, covariance)
+function z = vl_fvsinglegaussiancode(descrs, means, covariances, priors)
 [dimetion] = size(descrs,1);
 id=0;
 z=[];
@@ -7,7 +7,12 @@ for n=1:(dimetion-1)
        %fprintf('%d %d\n',n,m);
         id=id+1;
         temp=[descrs(n,:);descrs(m,:)];
-        code=vl_singcode2(temp, means{id}, covariance{id});
+                    code = vl_fisher(temp, ...
+                means{id}, ...
+                covariances{id}, ...
+                priors{id}, ...
+                'Improved') ;
+
         z=[z;code];
     end
 end

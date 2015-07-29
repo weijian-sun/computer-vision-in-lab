@@ -81,7 +81,7 @@ descrs = cat(2,descrs{:}) ;
 function psi = processChunk(encoder, im,opts)
 % --------------------------------------------------------------------
 psi = cell(1,numel(im)) ;
-if numel(im) > 1 & matlabpool('size') > 1
+if (numel(im) > 1 && matlabpool('size') > 1)
     parfor i = 1:numel(im)
         fprintf('process %d\n',i);
         psi{i} = encodeOne(encoder, im{i},opts) ;
@@ -89,6 +89,7 @@ if numel(im) > 1 & matlabpool('size') > 1
 else
     % avoiding parfor makes debugging easier
     parfor i = 1:numel(im)
+        fprintf('process %d\n',i);
         psi{i} = encodeOne(encoder, im{i},opts) ;
     end
 end
@@ -144,8 +145,10 @@ for i = 1:size(encoder.subdivisions,2)
     descrs = extendDescriptorsWithGeometry(encoder.geometricExtension, frames, descrs) ;
     
     switch encoder.type
+        case {'cnn-fvsinglegaussian'}
+            z=vl_fvsinglegaussiancode(descrs, encoder.means, encoder.covariances, encoder.priors);
         case {'cnn-singlegaussian'}
-            z=vl_singlegaussiancode(encoder.means, encoder,covariances);
+            z=vl_singlegaussiancode(descrs, encoder.word, encoder.covariance);
         case {'cnn-supervlagimproved'}
             z=vl_supervlagimproved(encoder.kdtree, encoder.words, descrs, opts.codedimention);
         case {'cnn-superfv-covariance'}

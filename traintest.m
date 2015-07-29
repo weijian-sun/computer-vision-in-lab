@@ -7,10 +7,12 @@ RandStream.setGlobalStream(S);
 
 total_start_time = round(clock);
 
-if ~exist('vl_version')
+%if ~exist('vl_version')
   run(fullfile(fileparts(which(mfilename)), ...
-               '..', '..', 'toolbox', 'vl_setup.m')) ;
-end
+               'vlfeat-0.9.20-for test2', 'toolbox', 'vl_setup.m')) ;
+  run(fullfile(fileparts(which(mfilename)), ...
+               'vlfeat-0.9.20-for test2', 'matconvnet-1.0-beta12', 'matlab', 'vl_setupnn.m')) ;
+%end
 
 opts.usepreprocessfeature=false;
 opts.savefeature=false;
