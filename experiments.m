@@ -1,7 +1,7 @@
 function experiments()
 % EXPERIMENTS   Run image classification experiments
 %    The experimens download a number of benchmark datasets in the
-%    'data/' subfolder. Make sure that there are several GBs of
+%    'data/' subfolder. Make surce that there are several GBs of
 %    space available.
 %
 %    By default, experiments run with a lite option turned on. This
@@ -79,38 +79,23 @@ ex(3).opts = {
   %'extractorFn', @(x) getDenseCnn(x, net, 'netlevel', 38, 'scales', 2.^(-0.5:.5:1.5))
   };
 
-ex(4).prefix = 'cnnvd37-singlegaussian-fmd-nopca-nocov-doublenormalization' ;
+ex(4).prefix = 'cnnvd36-singlegaussianimproved-fmd-nopca-5' ;
 ex(4).trainOpts = {'C', 10} ;
 ex(4).datasets = {'fmd'} ;
 ex(4).seed = 1;
 ex(4).usepreprocessfeature = true;
-ex(4).imagedateDir = '2^(-0.5-.5-1)-verydeep-19-level37';
+ex(4).imagedateDir = '2^(-0.5-.5-1)-verydeep-19-level36';
 %ex(4).net=load('imagenet-vgg-verydeep-19.mat');
 ex(4).savefeature=false;
 ex(4).opts = {
   'type', 'cnn-singlegaussian', ...
+  'numWords', 1, ...
   'layouts', {'1x1'}, ...
   'geometricExtension', 'none', ...
-  'numPcaDimensions',256, ...
+  'numPcaDimensions',+inf, ...
   %'extractorFn', @(x) getDenseCnn(x, net, 'netlevel', 38, 'scales', 2.^(-0.5:.5:1.5))
   }; 
 
-ex(5).prefix = 'cnnvd37-fvsinglegaussian-fmd-256pca-nocov-doublenormalization' ;
-ex(5).trainOpts = {'C', 10} ;
-ex(5).datasets = {'fmd'} ;
-ex(5).seed = 1;
-ex(5).usepreprocessfeature = true;
-ex(5).imagedateDir = '2^(-0.5-.5-1)-verydeep-19-level37';
-%ex(5).net=load('imagenet-vgg-verydeep-19.mat');
-ex(5).savefeature=false;
-ex(5).opts = {
-  'numWords', 1, ...
-  'type', 'cnn-fvsinglegaussian', ...
-  'layouts', {'1x1'}, ...
-  'geometricExtension', 'none', ...
-  'numPcaDimensions',256, ...
-  %'extractorFn', @(x) getDenseCnn(x, net, 'netlevel', 38, 'scales', 2.^(-0.5:.5:1.5))
-  }; 
 
 if lite, tag = 'lite' ;
 else, tag = 'ex' ; end

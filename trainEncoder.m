@@ -115,7 +115,9 @@ end
 
 if isempty(opts.numSamplesPerWord)
     switch opts.type
-        case {'cnn-superfv-covariance','cnn-supervlagimproved','cnn-singlegaussian','cnn-fvsinglegaussian'}
+        case {'cnn-singlegaussian'}
+            opts.numSamplesPerWord=50000;
+        case {'cnn-superfv-covariance','cnn-supervlagimproved'}
             opts.numSamplesPerWord=1000;
         case {'cnn-supervlag'}
             opts.numSamplesPerWord=1000;

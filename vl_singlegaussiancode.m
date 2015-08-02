@@ -20,6 +20,7 @@ end
 
 zu=norm(zu);
 zsigma=norm(zsigma);
+
 z=[zu;zsigma];
 z=norm(z);
 end

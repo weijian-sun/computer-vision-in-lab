@@ -11,6 +11,9 @@ for n=1:(dimention-1)
         means{id}=mean(temp,2);
         sigma=cov(temp')';
         [u,s,v]=svd(sigma);
+        
+        s=s+eye(2)*(5);
+        
         covarianceinverse{id}=v*s^(-1)*u'; 
     end
 end
